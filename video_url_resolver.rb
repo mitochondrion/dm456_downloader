@@ -4,7 +4,6 @@ require "rubygems"
 require "bundler/setup"
 
 require "mechanize"
-require "pry"
 require "execjs"
 require "uri"
 
@@ -47,7 +46,14 @@ class VideoUrlResolver
 end
 
 if __FILE__==$0
+  require "pry"
   url = "http://www.dm456.com/donghua/1399/73353.html"
-  puts VideoUrlResolver.new(url).video_url
-end
+  todou_url = VideoUrlResolver.new(url).video_url
+  
+  agent = Mechanize.new do |a|
+    a.proxy_host = 'localhost'
+    a.proxy_port = 8888
+  end
 
+  binding.pry
+end
